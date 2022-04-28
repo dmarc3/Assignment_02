@@ -1,2 +1,4 @@
 loguru
-
+coverage
+mock
+pylint
