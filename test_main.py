@@ -115,10 +115,13 @@ class TestMain(unittest.TestCase):
                 self.assertEqual(getattr(value, attr), getattr(expected[key], attr))
         self.assertTrue(result)
 
+        # ADD FAILED SCENARIO
+
     def test_save_status_updates(self):
         '''
         Test save_status_updates method
         '''
+        # Test successful save
         status_collection = main.init_status_collection()
         filename = os.path.join('test_files', 'test_good_status_updates.csv')
         main.load_status_updates(filename, status_collection)
@@ -129,6 +132,7 @@ class TestMain(unittest.TestCase):
         with open(out_file, 'r', encoding='utf-8') as out:
             with open(exp_file, 'r', encoding='utf-8') as exp:
                 self.assertEqual(out.readline(), exp.readline())
+        # ADD FAILED SCENARIO
 
     def test_add_user(self):
         '''
@@ -348,6 +352,7 @@ class TestMain(unittest.TestCase):
         filename = os.path.join('test_files', 'test_good_status_updates.csv')
         main.load_status_updates(filename, status_collection)
         result = main.search_status('dave03_00001', status_collection)
+        self.assertIsNotNone(result)
         expected = user_status.UserStatus('dave03_00001', 'dave03', 'Sunny in Seattle this morning')
         keys = ['status_id', 'user_id', 'status_text']
         for attr in keys:
