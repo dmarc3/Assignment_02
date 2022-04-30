@@ -3,6 +3,7 @@ Provides a basic frontend
 '''
 import sys
 import main
+import pdb
 
 
 def load_users():
@@ -107,7 +108,7 @@ def update_status():
     user_id = input('User ID: ')
     status_id = input('Status ID: ')
     status_text = input('Status text: ')
-    if not main.add_status(user_id, status_id, status_text, status_collection):
+    if not main.update_status(status_id, user_id, status_text, status_collection):
         print("An error occurred while trying to update status")
     else:
         print("Status was successfully updated")
