@@ -1,5 +1,8 @@
 '''
 Provides a basic frontend
+
+Kathleen incorporated all changes to users.py
+Marcus incorporated all changes to user_status.py code.
 '''
 # pylint: disable=W1203
 import sys

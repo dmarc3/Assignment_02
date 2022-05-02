@@ -1,7 +1,8 @@
 '''
 classes to manage the user status messages
 
-Marcus:
+All edits by Marcus Bakke.
+
 Disabling W1201 and W1203 in order to not have to re-format all of my logger strings
 The benefit of implementing "lazy % formatting" would be a performance boost
 since the string formatting would be executed only if the logger message is
