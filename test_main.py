@@ -100,7 +100,9 @@ class TestMain(unittest.TestCase):
         '''
         # Test good accounts
         status_collection = main.init_status_collection()
-        result = main.load_status_updates('status_updates.csv', status_collection)
+        result = main.load_status_updates(os.path.join('test_files',
+                                                       'test_good_status_updates.csv'),
+                                          status_collection)
         expected = {'evmiles97_00001': user_status.UserStatus('evmiles97_00001',
                                                               'evmiles97',
                                                               'Code is finally compiling'),

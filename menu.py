@@ -107,7 +107,7 @@ def update_status():
     user_id = input('User ID: ')
     status_id = input('Status ID: ')
     status_text = input('Status text: ')
-    if not main.add_status(user_id, status_id, status_text, status_collection):
+    if not main.update_status(status_id, user_id, status_text, status_collection):
         print("An error occurred while trying to update status")
     else:
         print("Status was successfully updated")
@@ -119,7 +119,7 @@ def search_status():
     '''
     status_id = input('Enter status ID to search: ')
     result = main.search_status(status_id, status_collection)
-    if not result.user_id:
+    if not result:
         print("ERROR: Status does not exist")
     else:
         print(f"User ID: {result.user_id}")
@@ -188,7 +188,8 @@ if __name__ == '__main__':
                             Q: Quit
 
                             Please enter your choice: """)
-        if user_selection.upper() in menu_options:
+        user_selection = user_selection.upper()
+        if user_selection in menu_options:
             menu_options[user_selection]()
         else:
             print("Invalid option")
