@@ -21,26 +21,26 @@ You can use *PDB*, *Pysnooper* or any other debugging techniques you like.
 ## Testing ``menu.py`` ##
 
 1. Load the users database.
-1. Add a new user and confirm you get a success message.
-1. Try to add the same user ID again and confirm you get an error message.
-1. Update the name of an existing user.
-1. Try to update the name of a non-existing user and confirm you get an error message.
-1. Search for an existing user and return that user's email, name and last name.
-1. Search for a non-existing user and return a message indicating that the user does not exist.
-1. Delete an existing user.
-1. Try to delete a non-existing user and confirm you get an error message.
-1. Save the users database.
-1. Load the status database.
-1. Add a new status and confirm you get a success message.
-1. Try to add the same status ID again and confirm you get an error message.
-1. Update the text of an existing status ID.
-1. Try to update the text of a non-existing status ID and confirm you get an error message.
-1. Search for an existing status ID and return the ID of the user that created the status and the status text.
-1. Search for a non-existing status ID and return a message indicating that the status ID does not exist.
-1. Delete an existing status.
-1. Try to delete a non-existing status and confirm you get an error message.
-1. Save the status database.
-1. Make sure menu options are case-insensitive (i.e., typing "a" or "A" works in the same way).
+2. Add a new user and confirm you get a success message.
+3. Try to add the same user ID again and confirm you get an error message.
+4. Update the name of an existing user.
+5. Try to update the name of a non-existing user and confirm you get an error message.
+6. Search for an existing user and return that user's email, name and last name.
+7. Search for a non-existing user and return a message indicating that the user does not exist.
+8. Delete an existing user.
+9. Try to delete a non-existing user and confirm you get an error message.
+10. Save the users database.
+11. Load the status database.
+12. Add a new status and confirm you get a success message.
+13. Try to add the same status ID again and confirm you get an error message.
+14. Update the text of an existing status ID.
+15. Try to update the text of a non-existing status ID and confirm you get an error message.
+16. Search for an existing status ID and return the ID of the user that created the status and the status text.
+17. Search for a non-existing status ID and return a message indicating that the status ID does not exist.
+18. Delete an existing status.
+19. Try to delete a non-existing status and confirm you get an error message.
+20. Save the status database.
+21. Make sure menu options are case-insensitive (i.e., typing "a" or "A" works in the same way).
 
 # Other requirements #
 

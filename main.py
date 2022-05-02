@@ -5,6 +5,20 @@ import csv
 import re
 import users
 import user_status
+import logging
+from datetime import datetime
+
+today = datetime.today().strftime('%Y-%m-%d')
+log_file = f'log_{today}.log'
+
+LOG_FORMAT = "%(asctime)s %(filename)s:%(lineno)-3d %(levelname)s %(message)s"
+
+formatter = logging.Formatter(LOG_FORMAT)
+file_handler = logging.FileHandler(log_file)
+file_handler.setFormatter(formatter)
+logger = logging.getLogger()
+logger.addHandler(file_handler)
+
 
 def init_user_collection():
     '''
@@ -34,12 +48,18 @@ def load_users(filename, user_collection):
     (such as empty fields in the source CSV file)
     - Otherwise, it returns True.
     '''
-    # Loop through each row in csv file
-    keys = {'USER_ID': validate_user_id,
-            'EMAIL': validate_email,
-            'NAME': validate_name,
-            'LASTNAME': validate_name}
-    return load_collection(filename, keys, user_collection, 'add_user')
+    try:
+        # Loop through each row in csv file
+        keys = {'USER_ID': validate_user_id,
+                'EMAIL': validate_email,
+                'NAME': validate_name,
+                'LASTNAME': validate_name}
+        return load_collection(filename, keys, user_collection, 'add_user')
+    except AttributeError:
+        file_handler.setLevel(logging.WARNING)
+        file_handler.setFormatter(formatter)
+        logging.warning('Tried to load a string.')
+        logging.error('Tried to load a string. Recovered gracefully.')
 
 
 def save_users(filename, user_collection):
@@ -106,6 +126,7 @@ def add_user(user_id, email, user_name, user_last_name, user_collection):
     - Otherwise, it returns True.
     '''
     if not validate_user_inputs(user_id, email, user_name, user_last_name):
+        logging.error(f'Adding user error')
         return False
     return user_collection.add_user(user_id, email, user_name, user_last_name)
 
@@ -119,7 +140,8 @@ def update_user(user_id, email, user_name, user_last_name, user_collection):
     - Otherwise, it returns True.
     '''
     # Validate inputs
-    if not validate_user_inputs(user_id, email, user_name, user_last_name):
+    if not  validate_user_inputs(user_id, email, user_name, user_last_name):
+        logging.error(f'Updating user error')
         return False
     return user_collection.modify_user(user_id, email, user_name, user_last_name)
 
@@ -207,7 +229,6 @@ def search_status(status_id, status_collection):
     return None
 
 # New functions
-
 def load_collection(filename, keys, collection, func):
     '''
     Method which loads status or user collection from CSV file
@@ -229,17 +250,18 @@ def load_collection(filename, keys, collection, func):
                             return False
                     except KeyError:
                         return False
-
                 # Add user if USER_ID/STATUS_ID not found in collection
                 try:
                     data = [row[key] for key in keys]
                     getattr(collection, func)(*data)
                 except KeyError:
                     return False
-
         return True
     except FileNotFoundError:
+        logging.warning('Tried to open a nonexistent file.')
+        logging.error(f'{filename} does not exist!')
         return False
+
 
 def save_collection(filename, keys, collection):
     '''
@@ -259,6 +281,7 @@ def save_collection(filename, keys, collection):
     except FileNotFoundError:
         return False
 
+
 def validate_user_id(user_id):
     '''
     Validates user_id
@@ -273,6 +296,7 @@ def validate_user_id(user_id):
     except ValueError:
         return True
 
+
 def validate_email(email):
     '''
     Validates email
@@ -284,6 +308,7 @@ def validate_email(email):
         return False
     return True
 
+
 def validate_name(name):
     '''
     Validates user_name
@@ -292,6 +317,7 @@ def validate_name(name):
     if not name.isalpha():
         return False
     return True
+
 
 def validate_status_id(status_id):
     '''
@@ -312,6 +338,7 @@ def validate_status_id(status_id):
     except ValueError:
         return False
 
+
 def validate_status_text(status_text):
     '''
     Accept any text input
@@ -320,24 +347,34 @@ def validate_status_text(status_text):
         return True
     return False
 
+
 def validate_user_inputs(user_id, email, user_name, user_last_name):
     '''
     Validates all user inputs
     '''
     # Validate inputs
     if not validate_user_id(user_id):
-        print(f'Invalid USER_ID: {user_id}')
+        file_handler.setLevel(logging.WARNING)
+        file_handler.setFormatter(formatter)
+        logging.warning(f'Invalid USER_ID: {user_id}')
         return False
     if not validate_email(email):
-        print(f'Invalid EMAIL: {email}')
+        file_handler.setLevel(logging.WARNING)
+        file_handler.setFormatter(formatter)
+        logging.warning(f'Invalid EMAIL: {email}')
         return False
     if not validate_name(user_name):
-        print(f'Invalid NAME: {user_name}')
+        file_handler.setLevel(logging.WARNING)
+        file_handler.setFormatter(formatter)
+        logging.warning(f'Invalid user name: {user_name}')
         return False
     if not validate_name(user_last_name):
-        print(f'Invalid LASTNAME: {user_last_name}')
+        file_handler.setLevel(logging.WARNING)
+        file_handler.setFormatter(formatter)
+        logging.warning(f'Invalid user name: {user_name}')
         return False
     return True
+
 
 def validate_status_inputs(status_id, user_id, status_text):
     '''

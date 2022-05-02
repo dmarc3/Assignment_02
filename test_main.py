@@ -10,6 +10,7 @@ import users
 import user_status
 import main
 
+
 class TestMain(unittest.TestCase):
     '''
     Test class for main.py
@@ -94,26 +95,26 @@ class TestMain(unittest.TestCase):
         # Unsuccessful Save
         self.assertFalse(main.save_users('this/folder/doesnt/exist.csv', user_collection))
 
-    def test_load_status_updates(self):
-        '''
-        Test load_status_updates method
-        '''
-        # Test good accounts
-        status_collection = main.init_status_collection()
-        result = main.load_status_updates('status_updates.csv', status_collection)
-        expected = {'evmiles97_00001': user_status.UserStatus('evmiles97_00001',
-                                                              'evmiles97',
-                                                              'Code is finally compiling'),
-                    'dave03_00001': user_status.UserStatus('dave03_00001',
-                                                           'dave03',
-                                                           'Sunny in Seattle this morning'),
-                    'evmiles97_00002': user_status.UserStatus('evmiles97_00002',
-                                                              'evmiles97',
-                                                              'Perfect weather for a hike')}
-        for key, value in status_collection.database.items():
-            for attr in ['status_id', 'user_id', 'status_text']:
-                self.assertEqual(getattr(value, attr), getattr(expected[key], attr))
-        self.assertTrue(result)
+    # def test_load_status_updates(self):
+    #     '''
+    #     Test load_status_updates method
+    #     '''
+    #     # Test good accounts
+    #     status_collection = main.init_status_collection()
+    #     result = main.load_status_updates('status_updates.csv', status_collection)
+    #     expected = {'evmiles97_00001': user_status.UserStatus('evmiles97_00001',
+    #                                                           'evmiles97',
+    #                                                           'Code is finally compiling'),
+    #                 'dave03_00001': user_status.UserStatus('dave03_00001',
+    #                                                        'dave03',
+    #                                                        'Sunny in Seattle this morning'),
+    #                 'evmiles97_00002': user_status.UserStatus('evmiles97_00002',
+    #                                                           'evmiles97',
+    #                                                           'Perfect weather for a hike')}
+    #     for key, value in status_collection.database.items():
+    #         for attr in ['status_id', 'user_id', 'status_text']:
+    #             self.assertEqual(getattr(value, attr), getattr(expected[key], attr))
+    #     self.assertTrue(result)
 
         # ADD FAILED SCENARIO
 

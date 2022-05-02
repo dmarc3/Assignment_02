@@ -4,7 +4,7 @@ Classes for user information for the social network project
 # pylint: disable=R0903
 
 
-class Users():
+class Users:
     '''
     Contains user information
     '''
@@ -16,7 +16,7 @@ class Users():
         self.user_last_name = user_last_name
 
 
-class UserCollection():
+class UserCollection:
     '''
     Contains a collection of Users objects
     '''
