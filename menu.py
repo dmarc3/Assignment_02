@@ -1,24 +1,24 @@
 '''
 Provides a basic frontend
 '''
+# pylint: disable=W1203
 import sys
-import os
 import logging
 from datetime import datetime
 import main
 
-
-
-today = datetime.today().strftime('%Y-%m-%d')
-log_file = f'log_{today}.log'
-
-LOG_FORMAT = "%(asctime)s %(filename)s:%(lineno)-3d %(levelname)s %(message)s"
-
-formatter = logging.Formatter(LOG_FORMAT)
-file_handler = logging.FileHandler(LOG_FORMAT)
+# Build logger
+FILE_FORMAT = "%(asctime)s %(filename)s:%(lineno)-4d %(levelname)s %(message)s"
+formatter = logging.Formatter(FILE_FORMAT)
+LOG_FILE = f'log_{datetime.today():%d-%m-%Y}.log'
+file_handler = logging .FileHandler(LOG_FILE)
+file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 logger.addHandler(file_handler)
+# Add launch statement
+logger.info(f'Session launched at {datetime.today():%H:%M:%S}.')
 
 
 def load_users():
@@ -50,7 +50,7 @@ def add_user():
                          user_name,
                          user_last_name,
                          user_collection):
-        logger.error("An error occurred while trying to add new user")
+        print("An error occurred while trying to add new user")
     else:
         print("User was successfully added")
 
@@ -63,7 +63,9 @@ def update_user():
     email = input('User email: ')
     user_name = input('User name: ')
     user_last_name = input('User last name: ')
-	# Potentially doubling check logic? I think main.update_user should return False if it fails and True if it doesn't already.
+	# Potentially doubling check logic?
+    # I think main.update_user should return False if it
+    # fails and True if it doesn't already.
     if main.update_user(user_id, email, user_name, user_last_name, user_collection) is True:
         main.update_user(user_id, email, user_name, user_last_name, user_collection)
     elif not user_collection.database:
@@ -80,7 +82,7 @@ def search_user():
     '''
     user_id = input('Enter user ID to search: ')
     result = main.search_user(user_id, user_collection)
-	# See search_update. Maybe its similar error? 
+	# See search_update. Maybe its similar error?
     try:
         print(f"User ID: {result.user_id}")
         print(f"Email: {result.email}")
@@ -182,16 +184,8 @@ def quit_program():
     '''
     Quits program
     '''
+    logging.info('Quitting program.\n\n')
     sys.exit()
-
-
-today = datetime.today().strftime('%Y-%m-%d')
-log_file = f'log_{today}.log'
-
-if os.path.exists(log_file):
-    pass
-else:
-    logger.add('log_{time:YYYY-MM-DD}.log')
 
 
 if __name__ == '__main__':
@@ -231,6 +225,9 @@ if __name__ == '__main__':
                             Please enter your choice: """)
         user_selection = user_selection.upper().strip()
         if user_selection in menu_options:
+            logging.info(f'User selected {user_selection} ' \
+                         f'-> executing {menu_options[user_selection].__name__}.')
             menu_options[user_selection]()
         else:
+            logging.info(f'{user_selection} is an invalid option.')
             print("Invalid option")

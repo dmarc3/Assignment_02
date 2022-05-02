@@ -5,6 +5,7 @@ Disable "Too many public methods" pylint message.
 # pylint: disable=R0904
 import unittest
 import os
+import logging
 from mock import patch
 import users
 import user_status
@@ -14,6 +15,11 @@ class TestMain(unittest.TestCase):
     '''
     Test class for main.py
     '''
+    def setUp(self):
+        '''
+        setUp method to disable logging.
+        '''
+        logging.disable(logging.CRITICAL)
 
     def test_init_user_collection(self):
         '''
@@ -429,6 +435,7 @@ class TestMain(unittest.TestCase):
         '''
         Tear Down function to delete saved files
         '''
+        logging.disable(logging.NOTSET)
         delete = [os.path.join('test_files', 'saved_add_accounts.csv'),
                   os.path.join('test_files', 'saved_status_updates.csv')]
         for file in delete:

@@ -5,6 +5,7 @@ Disable "Too many public methods" pylint message.
 # pylint: disable=R0904
 import unittest
 import os
+import logging
 from io import StringIO
 from mock import patch
 import main
@@ -19,6 +20,8 @@ class TestMenu(unittest.TestCase):
         setUp method to initialize collections.
         Author: Marcus Bakke
         '''
+        # Disable logger
+        logging.disable(logging.CRITICAL)
         # User collection
         menu.user_collection = main.init_user_collection()
         main.load_users(os.path.join('test_files', 'test_good_accounts.csv'),
@@ -27,13 +30,6 @@ class TestMenu(unittest.TestCase):
         menu.status_collection = main.init_status_collection()
         main.load_status_updates(os.path.join('test_files', 'test_good_status_updates.csv'),
                                  menu.status_collection)
-
-    def test_load_users(self):
-        '''
-        Test load_users method
-        Author: Kathleen Wong
-        '''
-        return
 
     @patch('builtins.input')
     @patch('main.load_status_updates')
@@ -48,41 +44,6 @@ class TestMenu(unittest.TestCase):
         menu.load_status_updates()
         self.assertTrue(mock_input.called)
         self.assertTrue(mock_load.called)
-
-    def test_add_user(self):
-        '''
-        Test add_users method
-        Author: Kathleen Wong
-        '''
-        return
-
-    def test_update_user(self):
-        '''
-        Test update_users method
-        Author: Kathleen Wong
-        '''
-        return
-
-    def test_search_user(self):
-        '''
-        Test search_users method
-        Author: Kathleen Wong
-        '''
-        return
-
-    def test_delete_user(self):
-        '''
-        Test delete_users method
-        Author: Kathleen Wong
-        '''
-        return
-
-    def test_save_user(self):
-        '''
-        Test save_users method
-        Author: Kathleen Wong
-        '''
-        return
 
     @patch('builtins.input')
     @patch('main.add_status')
@@ -212,6 +173,13 @@ class TestMenu(unittest.TestCase):
         '''
         menu.quit_program()
         self.assertTrue(mock_exit.called)
+
+    def tearDown(self):
+        '''
+        tearDown method.
+        Author: Marcus Bakke
+        '''
+        logging.disable(logging.NOTSET)
 
 
 
