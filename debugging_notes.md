@@ -1,5 +1,5 @@
 # Debugging Notes: #
-Below are all bugs found and fixes incorporated for `menu.py`.
+Below are all bugs found and fixes incorporated for `menu.py`. Kathleen focused on 1-10 and the `user.py` portion of code. Marcus focused on 11-21 and the `user_status.py` portion of code.
 
 1. `load_users`:
 2. `load_status_updates`:
@@ -15,6 +15,7 @@ Below are all bugs found and fixes incorporated for `menu.py`.
 10. `search_status`:
     - Marcus: `search_status` method assumed result is always a `StatusCollection`. However, `main.search_status` returns `None` when `status_id` doesn't exist. Changed if statement line to `if not result` since it will return `False` if a `StatusCollection` class is supplied.
 11. `delete_status`:
+    - None
 12. `save_status`:
 13. `quit_program`:
 14. `__main__`:
