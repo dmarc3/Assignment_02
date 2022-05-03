@@ -66,17 +66,10 @@ def update_user():
     email = input('User email: ')
     user_name = input('User name: ')
     user_last_name = input('User last name: ')
-	# Potentially doubling check logic?
-    # I think main.update_user should return False if it
-    # fails and True if it doesn't already.
-    if main.update_user(user_id, email, user_name, user_last_name, user_collection) is True:
-        main.update_user(user_id, email, user_name, user_last_name, user_collection)
-    elif not user_collection.database:
-        logging.warning('Updating user issue.')
-        logging.error('File has not been loaded yet so is empty.')
+    if main.update_user(user_id, email, user_name, user_last_name, user_collection):
+        print("User was successfully updated")
     else:
-        logging.warning('Updating user issue.')
-        logging.error('User not in file.')
+        print("An error occurred while trying to update user")
 
 
 def search_user():
@@ -85,19 +78,13 @@ def search_user():
     '''
     user_id = input('Enter user ID to search: ')
     result = main.search_user(user_id, user_collection)
-	# See search_update. Maybe its similar error?
-    try:
+    if not result:
+        print("ERROR: User does not exist")
+    else:
         print(f"User ID: {result.user_id}")
         print(f"Email: {result.email}")
         print(f"Name: {result.user_name}")
         print(f"Last name: {result.user_last_name}")
-    except AttributeError:
-        if not user_collection.database:
-            logging.warning('Searching user issue.')
-            logging.error('File has not been loaded yet so is empty.')
-        else:
-            logging.warning('Searching user issue.')
-            logging.error('%s does not exist.', user_id)
 
 
 def delete_user():
@@ -105,15 +92,10 @@ def delete_user():
     Deletes user from the database
     '''
     user_id = input('User ID: ')
-	# Double check this logic -> Could be duplication?
-    if main.delete_user(user_id, user_collection):
-        main.delete_user(user_id, user_collection)
-    elif not user_collection.database:
-        logging.warning('Deleting user issue.')
-        logging.error('File has not been loaded yet so is empty.')
+    if not main.delete_user(user_id, user_collection):
+        print("An error occurred while trying to delete user")
     else:
-        logging.warning('Searching user issue.')
-        logging.error('User not in file.')
+        print("User was successfully deleted")
 
 
 def save_users():
