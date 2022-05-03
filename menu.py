@@ -187,7 +187,7 @@ def quit_program():
     '''
     Quits program
     '''
-    logging.info('Quitting program.\n\n')
+    logging.info('Quitting program.')
     sys.exit()
 
 

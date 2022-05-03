@@ -1,6 +1,11 @@
 '''
 Unittest module.
 Disable "Too many public methods" pylint message.
+
+Marcus: I mistakenly read the "Test menu.py" section of the README.md
+and took it literally... I started writing all these unittests and
+realized only after I was complete that I didn't need to do this. Oh
+well... helped me find all of the bugs and practice mocking / patching
 '''
 # pylint: disable=R0904
 import unittest
