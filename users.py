@@ -12,6 +12,7 @@ class Users():
     '''
 
     def __init__(self, user_id, email, user_name, user_last_name):
+        logging.info('%s status initialized.', user_id)
         self.user_id = user_id
         self.email = email
         self.user_name = user_name
