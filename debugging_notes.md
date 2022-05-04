@@ -6,16 +6,15 @@ Marcus Bakke focused on 11-21 and the `user_status.py` portion of code.
 ## Testing ``menu.py`` ##
 
 1. Load the users database.
-   -Debugging needed: wrong parameter provided. Rather than user_collection (dict), used user_selection (str)
-   -Fix: main.load_users(filename, user_selection)-->main.load_users(filename, user_collection)
+   - Debugging needed: wrong parameter provided. Rather than `user_collection` (`dict`), used `user_selection` (`str`)
+   - Fix: `main.load_users(filename, user_selection)`-->`main.load_users(filename, user_collection)`
 3. Add a new user and confirm you get a success message.
 4. Try to add the same user ID again and confirm you get an error message.
-   -Debugging needed: add missing parameter
-   -Fix: main.update_user(user_id, email, user_name, user_last_name) -> main.update_user(user_id, email, user_name, 
-    user_last_name, user_collection)
+   - Debugging needed: add missing parameter
+   - Fix: `main.update_user(user_id, email, user_name, user_last_name)` -> `main.update_user(user_id, email, user_name, user_last_name, user_collection)`
 5. Update the name of an existing user.
-   -Debugging needed: remove not
-   -Fix: if not main.update_user(user_id, email, user_name, user_last_name, user_collection) -> if main.update_user(user_id, email, user_name, user_last_name, user_collection)
+   - Debugging needed: remove `not`
+   - Fix: `if not main.update_user(user_id, email, user_name, user_last_name, user_collection)` -> `if main.update_user(user_id, email, user_name, user_last_name, user_collection)`
 6. Try to update the name of a non-existing user and confirm you get an error message.
 7. Search for an existing user and return that user's email, name and last name.
 8. Search for a non-existing user and return a message indicating that the user does not exist.
