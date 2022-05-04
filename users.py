@@ -24,6 +24,7 @@ class UserCollection():
     '''
 
     def __init__(self):
+        logging.info('UserCollection initialized.')
         self.database = {}
 
     def add_user(self, user_id, email, user_name, user_last_name):
